@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="10" author="dmt">
+        <createTable tableName="token_auth">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true"  primaryKeyName="id_token"/>
+            </column>
+            <column name="user_id" type="bigint"/>
+            <column name="user_token" type="varchar(255)"/>
+            <column name="time_token" type="date"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

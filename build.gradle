@@ -1,0 +1,60 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+plugins {
+    id 'org.springframework.boot' version '2.3.1.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'java'
+}
+
+group = 'ITNews.project'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'javax.validation:validation-api'
+
+// spring fox
+    implementation 'io.springfox:springfox-swagger2:2.9.2'
+    implementation 'io.springfox:springfox-swagger-ui:2.9.2'
+
+// liquibase
+    implementation 'org.liquibase:liquibase-core:3.8.1'
+//	jwt
+
+    implementation 'io.jsonwebtoken:jjwt:0.9.1'
+
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor('org.projectlombok:lombok')
+
+	runtimeOnly 'mysql:mysql-connector-java'
+}
+
+
+test {
+    useJUnitPlatform()
+}
+
+processResources {
+	with copySpec {
+		from  'src/main/resources'
+		include '**/application*.yml'
+		include '**/application*.yaml'
+		include '**/application*.properties'
+		project.properties.findAll().each { prop ->
+			if (prop.value != null && prop.value instanceof String) {
+				filter(ReplaceTokens, tokens: [(prop.key): prop.value])
+				filter(ReplaceTokens, tokens: [('project.'.concat(prop.key)): prop.value])
+			}
+		}
+	}
+}

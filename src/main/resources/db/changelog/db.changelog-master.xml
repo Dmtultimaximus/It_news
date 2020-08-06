@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <preConditions>
+        <dbms type="mysql"/>
+    </preConditions>
+
+    <changeSet id="0" author="dmt">
+        <tagDatabase tag="db_init"/>
+    </changeSet>
+
+    <include file="v.1.0/db.changelog_v.1.0.xml" relativeToChangelogFile="true"/>
+    <include file="v.1.0/db.changelog_v.2.0.xml" relativeToChangelogFile="true"/>
+    <include file="v.1.0/db.changelog_v.3.0.xml" relativeToChangelogFile="true"/>
+    <include file="v.1.0/db.changelog_v.4.0.xml" relativeToChangelogFile="true"/>
+    <include file="v.1.0/db.changelog_v.5.0.xml" relativeToChangelogFile="true"/>
+    <include file="v.1.0/db.changelog_v.6.0.xml" relativeToChangelogFile="true"/>
+    <include file="v.1.0/db.changelog_v.7.0.xml" relativeToChangelogFile="true"/>
+    <include file="v.1.0/db.changelog_v.8.0.xml" relativeToChangelogFile="true"/>
+    <include file="v.1.0/db.changelog_v.9.0.xml" relativeToChangelogFile="true"/>
+    <include file="v.1.0/db.changelog_v.10.0.xml" relativeToChangelogFile="true"/>
+    <include file="v.1.0/db.changelog_v.11.0.xml" relativeToChangelogFile="true"/>
+    <include file="v.1.0/db.changelog_v.12.0.xml" relativeToChangelogFile="true"/>
+    <include file="v.1.0/db.changelog_v.13.0.xml" relativeToChangelogFile="true"/>
+    <include file="v.1.0/db.changelog_v.14.0.xml" relativeToChangelogFile="true"/>
+    <include file="v.1.0/db.changelog_v.15.0.xml" relativeToChangelogFile="true"/>
+    <include file="v.1.0/db.changelog_v.16.0.xml" relativeToChangelogFile="true"/>
+
+</databaseChangeLog>
