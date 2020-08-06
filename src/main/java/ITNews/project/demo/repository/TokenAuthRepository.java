@@ -10,5 +10,5 @@ import java.util.Optional;
 public interface TokenAuthRepository extends JpaRepository<TokenAuthEntity, Long> {
     Optional<TokenAuthEntity> findByUserToken(String token);
     Optional<TokenAuthEntity> getByUserId(Long userId);
-    Optional<TokenAuthEntity> findByUserIdAndEnabled(Long userId, Boolean enabled);
+    Optional<TokenAuthEntity> getByUserToken(String userToken);
 }

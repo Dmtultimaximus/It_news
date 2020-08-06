@@ -78,17 +78,8 @@ public class AuthService {
     }
 
     public AuthenticationResponse login(LoginRequest loginRequest) {
-
         UserEntity userEntity = userRepository.findByUsername(loginRequest.getUsername()).get();
-        Optional<TokenAuthEntity> verToken = tokenAuthRepository.findByUserIdAndEnabled(userEntity.getUserId(), true);
-        if (verToken.isEmpty()){
-            return getMeAuthToken(userEntity, loginRequest);
-        } else if (verToken.get().getTime_token().isAfter(LocalDateTime.now())){
-            throw new MyExeption("you alredy auth");
-        } else {
-            tokenService.corruptToken(verToken);
-            return getMeAuthToken(userEntity, loginRequest);
-        }
+        return getMeAuthToken(userEntity, loginRequest);
     }
 
     private AuthenticationResponse getMeAuthToken(UserEntity userEntity,LoginRequest loginRequest) {
@@ -107,8 +98,8 @@ public class AuthService {
         tokenAuthRepository.save(user_token);
     }
 
-    public void logout(UserEntity userdata) {
-        TokenAuthEntity userToken = tokenAuthRepository.getByUserId(userdata.getUserId()).orElseThrow(() -> new SpringException("user not found with id - " + userdata.getUserId()));
+    public void logout(UserEntity userdata, String token) {
+        TokenAuthEntity userToken = tokenAuthRepository.getByUserToken(token).orElseThrow(() -> new SpringException("user not found with id - " + userdata.getUserId()));
         userToken.setEnabled(false);
         tokenAuthRepository.save(userToken);
     }

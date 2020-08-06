@@ -37,9 +37,10 @@ public class AuthController {
         return authService.login(loginRequest);
     }
 
-    @GetMapping("/logout")
-    public void  logout(@AuthenticationPrincipal UserEntity userdata) {
-         authService.logout(userdata);
+    @PostMapping("/logout")
+    public void  logout(@AuthenticationPrincipal UserEntity userdata,
+                        @RequestParam String token) {
+         authService.logout(userdata, token);
     }
 }
 
