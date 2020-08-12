@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="16" author="dmt">
+        <renameColumn tableName="user_raiting_news_entity" oldColumnName="where_added_rating" newColumnName="news_id" columnDataType="bigint"/>
+        <renameColumn tableName="user_raiting_news_entity" oldColumnName="who_added_rating" newColumnName="user_id" columnDataType="bigint"/>
+    </changeSet>
+</databaseChangeLog>
