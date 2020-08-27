@@ -1,15 +1,15 @@
 package ITNews.project.ITNews.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthenticationResponse {
-    private Long userId;
-    private String authenticationToken;
-    private String username;
-    private Boolean success;
+@Builder
+public class RatingRequest {
+    private Long newsId;
+    private Byte rating;
 }

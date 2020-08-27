@@ -56,7 +56,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             errorApi.setCodeError(HttpStatus.UNAUTHORIZED.value());
             errorApi.setTimeError(LocalDateTime.now());
             errorApi.setMessage("Invalid token");
-
             response.setContentType(MediaType.APPLICATION_JSON_VALUE);
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
             response.getWriter().write(objectMapper.writeValueAsString(errorApi));
@@ -77,7 +76,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 ErrorApi errorApi = new ErrorApi();
                 errorApi.setCodeError(HttpStatus.UNAUTHORIZED.value());
                 errorApi.setTimeError(LocalDateTime.now());
-                errorApi.setMessage("Life Time");
+                errorApi.setMessage("Life Time Token");
 
                 response.setContentType(MediaType.APPLICATION_JSON_VALUE);
                 response.setStatus(HttpStatus.UNAUTHORIZED.value());

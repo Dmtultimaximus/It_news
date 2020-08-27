@@ -27,7 +27,7 @@ import java.util.UUID;
 @Transactional
 public class AuthService {
 
-    static final String address ="http://localhost:8080/api/auth/accountVerification/" ;
+    static final String address = "http://localhost:8080/api/auth/accountVerification/";
 
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
@@ -38,7 +38,7 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
 
     public ControllerResponse signup(RegisterRequest registerRequest) {
-        Optional<UserEntity> userRepeat = userRepository.findByUsernameOrEmail(registerRequest.getUsername(), registerRequest.getEmail());
+        Optional<UserEntity> userRepeat = userRepository.findFirstByUsernameOrEmail(registerRequest.getUsername(), registerRequest.getEmail());
         if ( userRepeat.isPresent() && (userRepeat.get().getEmail().equals(registerRequest.getEmail())) ){
             return new ControllerResponse("Signup","email occupied",false);
         } else if ( userRepeat.isPresent() && (userRepeat.get().getUsername().equals(registerRequest.getUsername())) ){
@@ -95,7 +95,7 @@ public class AuthService {
     private AuthenticationResponse getMeAuthToken(UserEntity userEntity, LoginRequest loginRequest) {
         String token = jwtProvider.generateToken(userEntity);
         fillTokenAuthAndSave(loginRequest.getUsername(),token);
-        return new AuthenticationResponse(token, loginRequest.getUsername(), true);
+        return new AuthenticationResponse(userEntity.getUserId(), token, loginRequest.getUsername(), true);
     }
 
     public void fillTokenAuthAndSave(String username, String token) {
@@ -113,5 +113,13 @@ public class AuthService {
         userToken.setEnabled(false);
         tokenAuthRepository.save(userToken);
         return new LogoutRequest(true);
+    }
+
+    public UserDetailsResponse getDataOfUser(UserEntity userData) {
+        UserDetailsResponse userDetailsResponse = new UserDetailsResponse();
+        userDetailsResponse.setUsername(userData.getUsername());
+        userDetailsResponse.setEmail(userData.getEmail());
+        userDetailsResponse.setCreateDate(userData.getCreated());
+        return userDetailsResponse;
     }
 }

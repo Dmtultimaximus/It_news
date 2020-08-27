@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthenticationResponse {
-    private Long userId;
-    private String authenticationToken;
-    private String username;
+public class NewsControllerResponse {
+    private Long newsId;
+    private String type;
+    private String message;
     private Boolean success;
 }

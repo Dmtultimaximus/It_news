@@ -1,15 +1,18 @@
 package ITNews.project.ITNews.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthenticationResponse {
-    private Long userId;
-    private String authenticationToken;
+@Builder
+public class UserDetailsResponse {
     private String username;
-    private Boolean success;
+    private String email;
+    private LocalDateTime createDate;
 }

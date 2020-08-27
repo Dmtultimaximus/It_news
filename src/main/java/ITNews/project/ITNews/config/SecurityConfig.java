@@ -33,19 +33,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.cors().and()
                 .csrf().disable()
+                .addFilterAfter(new JwtAuthFilter(userRepository, tokenAuthRepository, objectMapper, tokenService), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/api/**")
                 .authenticated()
                 .and()
-                .addFilterAfter(new JwtAuthFilter(userRepository, tokenAuthRepository, objectMapper, tokenService), UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
     // for ignore Http security
     @Override
     public void configure(WebSecurity web) throws Exception {
+        //for socket
+        web.ignoring().antMatchers("/api/socket/**");
         web.ignoring().antMatchers("/api/auth/login");
         web.ignoring().antMatchers("/api/auth/signup");
-//        web.ignoring().antMatchers("/api/auth/logout");
+        web.ignoring().antMatchers("/api/news/getAllNews");
+        web.ignoring().antMatchers("/api/news/getNews/{id}");
+        web.ignoring().antMatchers("/api/news/getAllImgNews/{newsId}");
+        web.ignoring().antMatchers("/api/rating/getRating");
         web.ignoring().antMatchers("/api/auth/accountVerification/{token}");
         web.ignoring().antMatchers("/v2/api-docs",
                 "/configuration/ui",
