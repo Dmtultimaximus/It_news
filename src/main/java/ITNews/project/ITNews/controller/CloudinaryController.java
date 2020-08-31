@@ -1,12 +1,14 @@
 package ITNews.project.ITNews.controller;
 
 import ITNews.project.ITNews.dto.ControllerResponse;
+import ITNews.project.ITNews.model.ImgNewsEntity;
 import ITNews.project.ITNews.service.CloudinaryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/cloud")
@@ -15,19 +17,22 @@ public class CloudinaryController {
 
     private final CloudinaryService cloudinaryService;
 
-    @PostMapping("/upload/{newsId}")
+    @PostMapping("/{newsId}")
     public ControllerResponse upload(@RequestBody MultipartFile[] multipartFile,
                                      @PathVariable Long newsId) throws IOException {
         return cloudinaryService.upload(multipartFile, newsId);
     }
 
-    @PostMapping("/uploadOther/{newsId}")
+    @PostMapping("/other/{newsId}")
     public ControllerResponse uploadOther(@RequestBody MultipartFile[] multipartFile,
                                           @PathVariable Long newsId) throws IOException {
         return cloudinaryService.uploadOtherImg(multipartFile, newsId);
     }
-
-    @DeleteMapping("/delete/{idImage}")
+    @GetMapping("/{newsId}")
+    public List<ImgNewsEntity> getAllImgNews(@PathVariable Long newsId){
+        return cloudinaryService.getAllImg(newsId);
+    }
+    @DeleteMapping("/{idImage}")
     public ControllerResponse delete(@PathVariable String idImage) throws IOException {
         return cloudinaryService.delete(idImage);
     }

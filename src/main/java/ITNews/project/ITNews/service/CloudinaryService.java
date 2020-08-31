@@ -5,6 +5,7 @@ import ITNews.project.ITNews.model.ImgNewsEntity;
 import ITNews.project.ITNews.repository.ImgNewsRepository;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,7 +24,14 @@ public class CloudinaryService {
     private static final String noImg= "https://res.cloudinary.com/itnewscloud/image/upload/v1597912961/No-image-available_dljkwb.png";
     private final ImgNewsRepository imgNewsRepository;
     private final Cloudinary cloudinary;
+    @Value("${origin}")
+    private String cloud_name;
 
+    @Value("${origin}")
+    private String api_key;
+
+    @Value("${origin}")
+    private String api_secret;
 
     public  CloudinaryService(ImgNewsRepository imgNewsRepository){
         this.imgNewsRepository = imgNewsRepository;
@@ -80,5 +88,8 @@ public class CloudinaryService {
         } else{
             return urlImg.get(0).getUrlImg();
         }
+    }
+    public List<ImgNewsEntity> getAllImg(Long newsId) {
+        return imgNewsRepository.findByIdNews(newsId);
     }
 }

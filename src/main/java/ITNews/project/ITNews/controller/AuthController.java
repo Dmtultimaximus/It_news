@@ -22,12 +22,12 @@ public class AuthController {
        return authService.signup(registerRequest);
     }
 
-    @GetMapping("/getDetailsOfUser")
+    @GetMapping("/get-details-user")
     public UserDetailsResponse getDetails(@AuthenticationPrincipal UserEntity userData){
         return authService.getDataOfUser(userData);
     }
 
-    @GetMapping("accountVerification/{token}")
+    @GetMapping("account-verification/{token}")
     public ControllerResponse verifyAccount(@PathVariable String token){
         return authService.verifyAccount(token);
     }

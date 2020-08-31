@@ -7,6 +7,7 @@ import ITNews.project.ITNews.service.TokenService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -47,10 +48,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/api/socket/**");
         web.ignoring().antMatchers("/api/auth/login");
         web.ignoring().antMatchers("/api/auth/signup");
-        web.ignoring().antMatchers("/api/news/getAllNews");
-        web.ignoring().antMatchers("/api/news/getNews/{id}");
-        web.ignoring().antMatchers("/api/news/getAllImgNews/{newsId}");
-        web.ignoring().antMatchers("/api/rating/getRating");
+        web.ignoring().antMatchers("/api/news");
+        web.ignoring().antMatchers(HttpMethod.GET, "/api/news/{id}");
+        web.ignoring().antMatchers("/api/cloud/{newsId}");
+        web.ignoring().antMatchers("/api/rating");
         web.ignoring().antMatchers("/api/auth/accountVerification/{token}");
         web.ignoring().antMatchers("/v2/api-docs",
                 "/configuration/ui",

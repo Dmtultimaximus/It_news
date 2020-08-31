@@ -18,16 +18,17 @@ public class RatingNewsController {
 
     private final RatingService ratingService;
 
-    @PostMapping("/addRating")
+    @PostMapping("/add")
     public ControllerResponse addRating(@AuthenticationPrincipal UserEntity userData,
                                         @RequestBody RatingRequest ratingRequest){
         return ratingService.addRating(userData, ratingRequest);
     }
-    @GetMapping("/getRating")
+    @GetMapping
     public ResponseEntity<Double> getRating(@RequestParam Long newsId){
         return new ResponseEntity<>(ratingService.getRating(newsId), HttpStatus.OK);
     }
-    @GetMapping("/checkRating")
+
+    @GetMapping("/check")
     public ControllerResponse checkRating(@AuthenticationPrincipal UserEntity userData,
                                           @RequestParam Long newsId){
         return ratingService.checkRating(userData, newsId);

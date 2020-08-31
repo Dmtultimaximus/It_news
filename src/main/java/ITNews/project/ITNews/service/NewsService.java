@@ -92,8 +92,4 @@ public class NewsService {
                                                      .map(this::mapForNews)
                                                      .collect(Collectors.toList());
     }
-
-    public List<ImgNewsEntity> getAllImg(Long newsId) {
-        return imgNewsRepository.findByIdNews(newsId);
-    }
 }
