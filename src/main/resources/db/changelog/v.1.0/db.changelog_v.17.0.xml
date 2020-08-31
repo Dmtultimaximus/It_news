@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="17" author="dmt">
+        <createTable tableName="img_news_entity">
+            <column autoIncrement="true" name ="id_img" type="BIGINT">
+            <constraints nullable="false" primaryKey="true" primaryKeyName="id_img"/>
+            </column>
+            <column name="name_img" type="VARCHAR(255)"/>
+            <column name="url_img" type="VARCHAR(255)"/>
+            <column name="cloud_id_img" type="VARCHAR(255)"/>
+            <column name="id_news" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
