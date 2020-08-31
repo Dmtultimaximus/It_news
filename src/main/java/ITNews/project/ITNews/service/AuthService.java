@@ -18,6 +18,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
@@ -37,12 +38,12 @@ public class AuthService {
     private final TokenAuthRepository tokenAuthRepository;
     private final AuthenticationManager authenticationManager;
 
-    public ControllerResponse signup(RegisterRequest registerRequest) {
+    public boolean signup(RegisterRequest registerRequest) {
         Optional<UserEntity> userRepeat = userRepository.findFirstByUsernameOrEmail(registerRequest.getUsername(), registerRequest.getEmail());
-        if ( userRepeat.isPresent() && (userRepeat.get().getEmail().equals(registerRequest.getEmail())) ){
-            return new ControllerResponse("Signup","email occupied",false);
-        } else if ( userRepeat.isPresent() && (userRepeat.get().getUsername().equals(registerRequest.getUsername())) ){
-            return new ControllerResponse("Signup","username occupied", false);
+        if (userRepeat.isPresent() && (userRepeat.get().getEmail().equals(registerRequest.getEmail()))) {
+            return false;
+        } else if (userRepeat.isPresent() && (userRepeat.get().getUsername().equals(registerRequest.getUsername()))) {
+            return false;
         } else {
             UserEntity userEntity = new UserEntity();
             userEntity.setUsername(registerRequest.getUsername());
@@ -55,9 +56,10 @@ public class AuthService {
             mailService.sendMail(new NotificationEmail("Please activate your accant",
                     userEntity.getEmail(),
                     "Thank you for signin " + address + token));
-            return new ControllerResponse("Signup","Please check your email for ending ",true);
+            return true;
         }
     }
+
     public String generateVerificationToken(UserEntity userEntity) {
         String token = UUID.randomUUID().toString();
         VerificationTokenEntity verificationTokenEntity = new VerificationTokenEntity();
@@ -67,16 +69,16 @@ public class AuthService {
         return token;
     }
 
-    public ControllerResponse verifyAccount(String token) {
+    public boolean verifyAccount(String token) {
         Optional<VerificationTokenEntity> verificationToken = verificationTokenRepository.findByToken(token);
         verificationToken.orElseThrow(() -> new TokenEmailException("invalid token"));
-        if(verificationToken.get().isEnabled()){
+        if (verificationToken.get().isEnabled()) {
             throw new TokenEmailException("you already activated this account");
         } else {
             verificationToken.get().setEnabled(true);
             fetchUserAndEnable(verificationToken.get());
+            return true;
         }
-        return new ControllerResponse("Verification", "success", true);
     }
 
     public void fetchUserAndEnable(VerificationTokenEntity verificationTokenEntity) {
@@ -94,7 +96,7 @@ public class AuthService {
 
     private AuthenticationResponse getMeAuthToken(UserEntity userEntity, LoginRequest loginRequest) {
         String token = jwtProvider.generateToken(userEntity);
-        fillTokenAuthAndSave(loginRequest.getUsername(),token);
+        fillTokenAuthAndSave(loginRequest.getUsername(), token);
         return new AuthenticationResponse(userEntity.getUserId(), token, loginRequest.getUsername(), true);
     }
 

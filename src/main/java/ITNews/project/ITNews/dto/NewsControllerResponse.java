@@ -9,7 +9,4 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class NewsControllerResponse {
     private Long newsId;
-    private String type;
-    private String message;
-    private Boolean success;
 }

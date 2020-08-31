@@ -2,7 +2,6 @@ package ITNews.project.ITNews.service;
 
 import ITNews.project.ITNews.dto.ControllerResponse;
 import ITNews.project.ITNews.dto.RatingRequest;
-import ITNews.project.ITNews.exeption.RatingExeption;
 import ITNews.project.ITNews.model.UserEntity;
 import ITNews.project.ITNews.model.UserRaitingNewsEntity;
 import ITNews.project.ITNews.repository.RatingRepository;
@@ -19,9 +18,9 @@ public class RatingService {
 
     private final RatingRepository ratingRepository;
 
-    public ControllerResponse addRating(UserEntity userData , RatingRequest ratingRequest) {
-        if(ratingRepository.findByUserIdAndNewsId(userData.getUserId(), ratingRequest.getNewsId()).isPresent()){
-            return new ControllerResponse("Add Rating", "you already added rating", false);
+    public boolean addRating(UserEntity userData, RatingRequest ratingRequest) {
+        if (ratingRepository.findByUserIdAndNewsId(userData.getUserId(), ratingRequest.getNewsId()).isPresent()) {
+            return false;
         } else {
             UserRaitingNewsEntity userRating = new UserRaitingNewsEntity();
             userRating.setRating(ratingRequest.getRating());
@@ -29,7 +28,7 @@ public class RatingService {
             userRating.setUserId(userData.getUserId());
             ratingRepository.save(userRating);
         }
-        return new ControllerResponse("Add Rating", "success", true);
+        return true;
     }
 
     public double getRating(Long newsId) {
@@ -42,11 +41,7 @@ public class RatingService {
         return rait;
     }
 
-    public ControllerResponse checkRating(UserEntity userData, Long newsId) {
-        if (ratingRepository.findByUserIdAndNewsId(userData.getUserId(), newsId).isPresent()){
-            return new ControllerResponse("Add Rating", "you already added rating", false);
-        } else {
-            return new ControllerResponse("Add Rating", "you already added rating", true);
-        }
+    public boolean checkRating(UserEntity userData, Long newsId) {
+        return ratingRepository.findByUserIdAndNewsId(userData.getUserId(), newsId).isEmpty();
     }
 }

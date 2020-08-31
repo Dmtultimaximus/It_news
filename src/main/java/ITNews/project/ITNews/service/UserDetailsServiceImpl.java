@@ -1,8 +1,7 @@
 package ITNews.project.ITNews.service;
 
-import ITNews.project.ITNews.repository.UserRepository;
 import ITNews.project.ITNews.model.UserEntity;
-import lombok.AllArgsConstructor;
+import ITNews.project.ITNews.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,8 +10,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Collection;
 import java.util.Optional;
+
 import static java.util.Collections.singletonList;
 
 @Service

@@ -31,23 +31,23 @@ public class NewsController {
     @PostMapping("/")
     public NewsControllerResponse addNews(@AuthenticationPrincipal UserEntity userData,
                                           @RequestBody NewsRequest newsRequest) {
-        return newsService.add(newsRequest, userData );
+        return newsService.add(newsRequest, userData);
     }
 
     @GetMapping("/{id}")
-    public NewsRequest getNews(@PathVariable String id){
+    public NewsRequest getNews(@PathVariable String id) {
         return newsService.getNews(Long.parseLong(id));
     }
 
     @PutMapping("/{id}")
-    public ControllerResponse updateNews(@PathVariable Long id,
-                                         @RequestBody NewsRequest newsRequest) {
+    public boolean updateNews(@PathVariable Long id,
+                              @RequestBody NewsRequest newsRequest) {
         return newsService.update(newsRequest, id);
     }
 
     @DeleteMapping("/{id}")
-    public ControllerResponse  deleteNews(@AuthenticationPrincipal UserEntity userData,
-                                          @PathVariable Long id) {
+    public boolean deleteNews(@AuthenticationPrincipal UserEntity userData,
+                              @PathVariable Long id) {
         return newsService.delete(id, userData);
     }
 }

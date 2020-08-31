@@ -18,22 +18,24 @@ public class CloudinaryController {
     private final CloudinaryService cloudinaryService;
 
     @PostMapping("/{newsId}")
-    public ControllerResponse upload(@RequestBody MultipartFile[] multipartFile,
+    public boolean upload(@RequestBody MultipartFile[] multipartFile,
                                      @PathVariable Long newsId) throws IOException {
         return cloudinaryService.upload(multipartFile, newsId);
     }
 
     @PostMapping("/other/{newsId}")
-    public ControllerResponse uploadOther(@RequestBody MultipartFile[] multipartFile,
+    public boolean uploadOther(@RequestBody MultipartFile[] multipartFile,
                                           @PathVariable Long newsId) throws IOException {
         return cloudinaryService.uploadOtherImg(multipartFile, newsId);
     }
+
     @GetMapping("/{newsId}")
-    public List<ImgNewsEntity> getAllImgNews(@PathVariable Long newsId){
+    public List<ImgNewsEntity> getAllImgNews(@PathVariable Long newsId) {
         return cloudinaryService.getAllImg(newsId);
     }
+
     @DeleteMapping("/{idImage}")
-    public ControllerResponse delete(@PathVariable String idImage) throws IOException {
+    public boolean delete(@PathVariable String idImage) throws IOException {
         return cloudinaryService.delete(idImage);
     }
 }
