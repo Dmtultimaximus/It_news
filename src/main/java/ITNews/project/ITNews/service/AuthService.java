@@ -28,7 +28,7 @@ import java.util.UUID;
 @Transactional
 public class AuthService {
 
-    static final String address = "http://localhost:8080/api/auth/accountVerification/";
+    static final String address = "http://localhost:8080/api/auth/account-verification/";
 
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;

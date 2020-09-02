@@ -1,6 +1,5 @@
 package ITNews.project.ITNews.controller;
 
-import ITNews.project.ITNews.dto.ControllerResponse;
 import ITNews.project.ITNews.dto.RatingRequest;
 import ITNews.project.ITNews.model.UserEntity;
 import ITNews.project.ITNews.service.RatingService;

@@ -53,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers(HttpMethod.GET, "/api/news/{id}");
         web.ignoring().antMatchers("/api/cloud/{newsId}");
         web.ignoring().antMatchers("/api/rating");
-        web.ignoring().antMatchers("/api/auth/accountVerification/{token}");
+        web.ignoring().antMatchers("/api/auth/account-verification/{token}");
         web.ignoring().antMatchers("/v2/api-docs",
                 "/configuration/ui",
                 "/swagger-resources/**",
