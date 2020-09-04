@@ -31,5 +31,5 @@
     <include file="v.1.0/db.changelog_v.16.0.xml" relativeToChangelogFile="true"/>
     <include file="v.1.0/db.changelog_v.17.0.xml" relativeToChangelogFile="true"/>
     <include file="v.1.0/db.changelog_v.18.0.xml" relativeToChangelogFile="true"/>
-
+    <include file="v.1.0/db.changelog_v.19.0.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

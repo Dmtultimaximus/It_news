@@ -16,7 +16,6 @@ public class WebSocketService {
     String messageBody;
     String separator = "$:";
     private final CommentRepository commentRepository;
-    private final CommentService commentService;
     public String add(String message, UserEntity userdata, String newsId) {
 //        String newsId = (String) ((LinkedMultiValueMap) map.get("nativeHeaders")).get("news").get(0);
         CommentEntity newComment = new CommentEntity();
@@ -24,8 +23,7 @@ public class WebSocketService {
         newComment.setCreatedDate(LocalDateTime.now());
         newComment.setNews(Long.parseLong(newsId));
         newComment.setUser(userdata);
-        commentRepository.save(newComment);
-        messageBody = message + separator + userdata.getUsername();
+        messageBody = message + separator + userdata.getUsername() + separator + commentRepository.save(newComment).getCommentId();;
         return messageBody;
     }
 }

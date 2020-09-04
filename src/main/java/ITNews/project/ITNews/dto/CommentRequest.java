@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 public class CommentRequest {
+    private Long commentId;
     private LocalDateTime date;
     private String text;
     private Integer likes;

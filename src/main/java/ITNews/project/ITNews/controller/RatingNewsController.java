@@ -18,7 +18,7 @@ public class RatingNewsController {
 
     @PostMapping("/add")
     public boolean addRating(@AuthenticationPrincipal UserEntity userData,
-                                        @RequestBody RatingRequest ratingRequest) {
+                             @RequestBody RatingRequest ratingRequest) {
         return ratingService.addRating(userData, ratingRequest);
     }
 
@@ -29,7 +29,7 @@ public class RatingNewsController {
 
     @GetMapping("/check")
     public boolean checkRating(@AuthenticationPrincipal UserEntity userData,
-                                          @RequestParam Long newsId) {
+                               @RequestParam Long newsId) {
         return ratingService.checkRating(userData, newsId);
     }
 }

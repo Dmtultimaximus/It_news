@@ -1,6 +1,5 @@
 package ITNews.project.ITNews.model;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,14 +7,10 @@ import org.springframework.lang.NonNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.*;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
@@ -36,6 +31,11 @@ public class UserEntity implements UserDetails {
 //    @Email
     private String email;
     private LocalDateTime created;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_authority",
+                joinColumns = @JoinColumn(name = "user_id_fk"),
+                inverseJoinColumns = @JoinColumn(name = "authority_id_fk"))
+    private List<AuthorityEntity> authorities = new ArrayList<>();
     private boolean enabled;
     @Transient
     private boolean accountNonExpired = true;
@@ -43,8 +43,4 @@ public class UserEntity implements UserDetails {
     private boolean accountNonLocked = true;
     @Transient
     private boolean credentialsNonExpired = true;
-    @Transient
-    private Collection<GrantedAuthority> authorities = Collections.singletonList(
-            (GrantedAuthority) () -> "USER"
-    );
 }
