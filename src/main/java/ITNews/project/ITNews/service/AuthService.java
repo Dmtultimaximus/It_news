@@ -122,6 +122,7 @@ public class AuthService {
         userDetailsResponse.setUsername(userData.getUsername());
         userDetailsResponse.setEmail(userData.getEmail());
         userDetailsResponse.setCreateDate(userData.getCreated());
+        userDetailsResponse.setRole(userData.getAuthorities());
         return userDetailsResponse;
     }
 }

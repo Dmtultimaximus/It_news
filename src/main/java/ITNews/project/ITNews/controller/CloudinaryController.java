@@ -1,6 +1,5 @@
 package ITNews.project.ITNews.controller;
 
-import ITNews.project.ITNews.dto.ControllerResponse;
 import ITNews.project.ITNews.model.ImgNewsEntity;
 import ITNews.project.ITNews.service.CloudinaryService;
 import lombok.RequiredArgsConstructor;
@@ -19,13 +18,13 @@ public class CloudinaryController {
 
     @PostMapping("/{newsId}")
     public boolean upload(@RequestBody MultipartFile[] multipartFile,
-                                     @PathVariable Long newsId) throws IOException {
+                          @PathVariable Long newsId) throws IOException {
         return cloudinaryService.upload(multipartFile, newsId);
     }
 
     @PostMapping("/other/{newsId}")
     public boolean uploadOther(@RequestBody MultipartFile[] multipartFile,
-                                          @PathVariable Long newsId) throws IOException {
+                               @PathVariable Long newsId) throws IOException {
         return cloudinaryService.uploadOtherImg(multipartFile, newsId);
     }
 

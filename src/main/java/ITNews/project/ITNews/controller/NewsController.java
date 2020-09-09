@@ -1,6 +1,5 @@
 package ITNews.project.ITNews.controller;
 
-import ITNews.project.ITNews.dto.ControllerResponse;
 import ITNews.project.ITNews.dto.NewsControllerResponse;
 import ITNews.project.ITNews.dto.NewsRequest;
 import ITNews.project.ITNews.model.UserEntity;
@@ -45,6 +44,7 @@ public class NewsController {
         return newsService.update(newsRequest, id);
     }
 
+//    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/{id}")
     public boolean deleteNews(@AuthenticationPrincipal UserEntity userData,
                               @PathVariable Long id) {

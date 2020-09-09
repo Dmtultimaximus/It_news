@@ -7,6 +7,7 @@ import ITNews.project.ITNews.model.NewsEntity;
 import ITNews.project.ITNews.model.UserEntity;
 import ITNews.project.ITNews.repository.NewsRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -60,7 +61,6 @@ public class NewsService {
         newsRepository.save(news);
         return true;
     }
-
     public boolean delete(Long newsId, UserEntity userData) {
         Optional<NewsEntity> findNews = newsRepository.findByNewsIdAndUser(newsId, userData);
         if (findNews.isPresent()) {

@@ -9,12 +9,13 @@ import ITNews.project.ITNews.model.UserLikeCommentEntity;
 import ITNews.project.ITNews.repository.CommentRepository;
 import ITNews.project.ITNews.repository.LikeRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -66,7 +67,6 @@ public class CommentService {
         return true;
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
     public List checkLike(UserEntity userData, Long newsId) {
         List<CheckLikeResponse> checkLikeResponseList = new ArrayList<CheckLikeResponse>();
         List<CommentEntity> comments = commentRepository.findAllByNews(newsId);
